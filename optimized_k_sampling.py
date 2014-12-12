@@ -80,6 +80,7 @@ def checkPoint(N,S,voters, flag=False):
             voter[1] = permutedPref
             if payoff(originalPrefs, election.election_res(N,S,voters)) > honestPayoff:
                 print voters
+                voter[1] = originalPrefs
                 return False
         #Reset the voter preferences for the next guy
         voter[1] = originalPrefs
@@ -99,6 +100,7 @@ def payoff(voterPreferences, elected):
 def explorePointSpace(N,S,voters):
     explorePointSpaceHelper(N,S,voters,0)
 
+
 def explorePointSpaceHelper(N,S,voters,currentVoter):
     originalPref = voters[currentVoter][0]
     voters[currentVoter][0] = 0
@@ -107,6 +109,7 @@ def explorePointSpaceHelper(N,S,voters,currentVoter):
         voters[currentVoter][0] = round(1 - reduce(lambda x,y: x+y[0],voters,0),2)
         #print "Checking", [voters[i][0] for i in xrange(len(voters))]
         #tempvoters = copy.deepcopy(voters)
+        #print voters
         if checkPoint(N,S,voters):
             print [voters[i][0] for i in xrange(len(voters))],True
         else:
@@ -119,7 +122,10 @@ def explorePointSpaceHelper(N,S,voters,currentVoter):
             explorePointSpaceHelper(N,S,voters,currentVoter+1)
     voters[currentVoter][0] = originalPref
     return
-        
+    
+
+#def DFS(N, S, voters, currentVoter):
+    
 
 if __name__=="__main__":
 
@@ -138,15 +144,15 @@ if __name__=="__main__":
     voters = []
     voters.append([0.0/10.0, [0,1,2]])
     voters.append([0.0/10.0, [0,2,1]])
-    voters.append([4.0/10.0, [1,0,2]])
-    voters.append([6.0/10.0, [1,2,0]])
-    voters.append([0.0/10.0, [2,0,1]])
-    voters.append([0.0/10.0, [2,1,0]])
+    voters.append([0.0/10.0, [1,0,2]])
+    voters.append([0.0/10.0, [1,2,0]])
+    voters.append([6.0/10.0, [2,0,1]])
+    voters.append([4.0/10.0, [2,1,0]])
 
 
-    print checkPoint(3,2,voters)
+    #print checkPoint(3,2,voters)
     #print election.election_res(3,2,voters)
-    #print explorePointSpace(3,2,voters)
+    print explorePointSpace(3,2,voters)
     
 
     """
