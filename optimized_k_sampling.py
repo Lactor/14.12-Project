@@ -79,7 +79,7 @@ def checkPoint(N,S,voters, flag=False):
         for permutedPref in itertools.permutations(originalPrefs):
             voter[1] = permutedPref
             if payoff(originalPrefs, election.election_res(N,S,voters)) > honestPayoff:
-                print voters
+                #print voters
                 voter[1] = originalPrefs
                 return False
         #Reset the voter preferences for the next guy
@@ -152,7 +152,7 @@ if __name__=="__main__":
 
     #print checkPoint(3,2,voters)
     #print election.election_res(3,2,voters)
-    print explorePointSpace(3,2,voters)
+    print explorePointSpace(3,1,voters)
     
 
     """
